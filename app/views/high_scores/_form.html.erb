@@ -1,0 +1,39 @@
+<%= nested_form_for(@high_score) do |f| %>
+  <% if high_score.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(high_score.errors.count, "error") %> prohibited this high_score from being saved:</h2>
+
+      <ul>
+      <% high_score.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :game %>
+    <%= f.text_field :game %>
+  </div>
+
+  <div class="field">
+    <%= f.label :score %>
+    <%= f.number_field :score %>
+  </div>
+      <h2>Subjects</h2>
+    <%= f.fields_for :subjects do |ff| %>
+      <!-- <div class="field"> -->
+        <%= ff.label :name %>
+        <%= ff.text_field :name %>
+        <%= ff.label :status %>
+        <%= ff.text_field :status %>
+        <% if ff.object.persisted? %>
+          <%= ff.check_box :_destroy %>
+          <%= ff.label :_destroy, "Destroy" %>
+        <% end %>
+      <!-- </div> -->
+    <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
